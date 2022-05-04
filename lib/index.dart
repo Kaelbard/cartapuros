@@ -15,3 +15,4 @@ export 'oliva/oliva_widget.dart' show OlivaWidget;
 export 'quorum/quorum_widget.dart' show QuorumWidget;
 export 'vega_fina/vega_fina_widget.dart' show VegaFinaWidget;
 export 'buscar/buscar_widget.dart' show BuscarWidget;
+export 'testehome_page/testehome_page_widget.dart' show TestehomePageWidget;
