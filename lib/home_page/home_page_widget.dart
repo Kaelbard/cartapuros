@@ -1,6 +1,9 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -162,224 +165,245 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ],
               ),
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Container(
-                                          width: 350,
-                                          decoration: BoxDecoration(),
-                                          child: PagedListView<
-                                              DocumentSnapshot<Object>,
-                                              ProcuraPurosRecord>(
-                                            pagingController: _pagingController,
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            builderDelegate:
-                                                PagedChildBuilderDelegate<
-                                                    ProcuraPurosRecord>(
-                                              // Customize what your widget looks like when it's loading the first page.
-                                              firstPageProgressIndicatorBuilder:
-                                                  (_) => Center(
-                                                child: SizedBox(
-                                                  width: 50,
-                                                  height: 50,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
+              InkWell(
+                onTap: () async {
+                  final buscarCharutosCreateData = {
+                    'Keyword': [
+                      functions.keyWordsMultipleFields(
+                          textController.text, textController.text)
+                    ],
+                  };
+                  await BuscarCharutosRecord.collection
+                      .doc()
+                      .set(buscarCharutosCreateData);
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Align(
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: Container(
+                                            width: 350,
+                                            decoration: BoxDecoration(),
+                                            child: PagedListView<
+                                                DocumentSnapshot<Object>,
+                                                ProcuraPurosRecord>(
+                                              pagingController:
+                                                  _pagingController,
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              builderDelegate:
+                                                  PagedChildBuilderDelegate<
+                                                      ProcuraPurosRecord>(
+                                                // Customize what your widget looks like when it's loading the first page.
+                                                firstPageProgressIndicatorBuilder:
+                                                    (_) => Center(
+                                                  child: SizedBox(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
 
-                                              children: [
-                                                if ((listViewProcuraPurosRecord
-                                                        .text) ==
-                                                    (listViewProcuraPurosRecord
-                                                        .text))
-                                                  StreamBuilder<
-                                                      List<ProcuraPurosRecord>>(
-                                                    stream:
-                                                        queryProcuraPurosRecord(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryColor,
+                                                children: [
+                                                  if ((listViewProcuraPurosRecord
+                                                          .text) ==
+                                                      (listViewProcuraPurosRecord
+                                                          .text))
+                                                    StreamBuilder<
+                                                        List<
+                                                            ProcuraPurosRecord>>(
+                                                      stream:
+                                                          queryProcuraPurosRecord(),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                              ),
                                                             ),
+                                                          );
+                                                        }
+                                                        List<ProcuraPurosRecord>
+                                                            cardProcuraPurosRecordList =
+                                                            snapshot.data;
+                                                        return Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color:
+                                                              Color(0xFFF5F5F5),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              if (listViewProcuraPurosRecord !=
+                                                                  null)
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    listViewProcuraPurosRecord
+                                                                        .text,
+                                                                    'Puro dos caralhos',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                      ),
+                                                                ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            50,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: FaIcon(
+                                                                  FontAwesomeIcons
+                                                                      .shoppingBasket,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 24,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         );
-                                                      }
-                                                      List<ProcuraPurosRecord>
-                                                          cardProcuraPurosRecordList =
-                                                          snapshot.data;
-                                                      return Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0xFFF5F5F5),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            if (listViewProcuraPurosRecord !=
-                                                                null)
-                                                              Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  listViewProcuraPurosRecord
-                                                                      .text,
-                                                                  'Puro dos caralhos',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
+                                                      },
+                                                    ),
+                                                  if ((listViewProcuraPurosRecord
+                                                          .text) ==
+                                                      (listViewProcuraPurosRecord
+                                                          .text))
+                                                    StreamBuilder<
+                                                        List<
+                                                            ProcuraPurosRecord>>(
+                                                      stream:
+                                                          queryProcuraPurosRecord(),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                    ),
-                                                              ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          50,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .shoppingBasket,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 24,
+                                                                    .primaryColor,
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                if ((listViewProcuraPurosRecord
-                                                        .text) ==
-                                                    (listViewProcuraPurosRecord
-                                                        .text))
-                                                  StreamBuilder<
-                                                      List<ProcuraPurosRecord>>(
-                                                    stream:
-                                                        queryProcuraPurosRecord(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryColor,
-                                                            ),
+                                                          );
+                                                        }
+                                                        List<ProcuraPurosRecord>
+                                                            cardProcuraPurosRecordList =
+                                                            snapshot.data;
+                                                        return Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color:
+                                                              Color(0xFFF5F5F5),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              if (listViewProcuraPurosRecord !=
+                                                                  null)
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    listViewProcuraPurosRecord
+                                                                        .text,
+                                                                    'Arturo',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                      ),
+                                                                ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            50,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: FaIcon(
+                                                                  FontAwesomeIcons
+                                                                      .shoppingBasket,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 24,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         );
-                                                      }
-                                                      List<ProcuraPurosRecord>
-                                                          cardProcuraPurosRecordList =
-                                                          snapshot.data;
-                                                      return Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0xFFF5F5F5),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            if (listViewProcuraPurosRecord !=
-                                                                null)
-                                                              Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  listViewProcuraPurosRecord
-                                                                      .text,
-                                                                  'Arturo',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                    ),
-                                                              ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          50,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .shoppingBasket,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 24,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                              ],
+                                                      },
+                                                    ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

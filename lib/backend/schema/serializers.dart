@@ -1,6 +1,7 @@
 import 'package:built_value/standard_json_plugin.dart';
 
 import 'procura_puros_record.dart';
+import 'buscar_charutos_record.dart';
 
 import 'index.dart';
 
@@ -12,6 +13,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
   ProcuraPurosRecord,
+  BuscarCharutosRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
